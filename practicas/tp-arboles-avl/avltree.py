@@ -1,4 +1,3 @@
-print("hola")
 class AVLTree:
   root = None
 
@@ -11,7 +10,7 @@ class AVLNode:
   value = None
   bf = None
 
-#rota
+#rota a la izquierda
 def rotateLeft(Tree, avlnode):
   nodeAnt = avlnode
   parentAnt = avlnode.parent
@@ -27,7 +26,7 @@ def rotateLeft(Tree, avlnode):
 
   return (newRoot)
 
-
+#rota a la derecha
 def rotateRight(Tree, avlnode):
   nodeAnt = avlnode
   parentAnt = avlnode.parent
@@ -43,6 +42,18 @@ def rotateRight(Tree, avlnode):
 
     return (newRoot)
 
+#calcula la altura desde un nodo dado
+def heigth(node):
+  if node is None:
+    return 0
+
+  left = heigth(node.leftnode)
+  right = heigth(node.rightnode)
+
+  if left >= right:
+    return left + 1
+  else:
+    return right + 1
 
 ''' Descripción: Inserta un elemento con una clave determinada del TAD árbol binario.
 Salida: Si pudo insertar con éxito devuelve la key donde se inserta el elemento. En caso contrario devuelve None. '''
@@ -81,7 +92,3 @@ def insertR(newNode, currentNode):
       if left != None:
         return left
 
-
-print("hola juan <3")
-
-print('Hola juli <3')
