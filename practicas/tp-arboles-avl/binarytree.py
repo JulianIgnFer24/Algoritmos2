@@ -1,3 +1,5 @@
+from linkedlist import *
+
 class BinaryTree:
   root = None
 

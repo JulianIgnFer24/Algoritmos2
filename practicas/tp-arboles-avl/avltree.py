@@ -10,37 +10,32 @@ class AVLNode:
   value = None
   bf = None
 
-#rota a la izquierda
 def rotateLeft(Tree, avlnode):
-  nodeAnt = avlnode
-  parentAnt = avlnode.parent
   newRoot = avlnode.rightnode
 
   if newRoot.leftnode == None:
-    nodeAnt.parent = newRoot
-    newRoot.leftnode = nodeAnt
-    if nodeAnt.parent != Tree.root:
-      newRoot.parent = parentAnt
+    if avlnode != Tree.root:
+      avlnode.parent = newRoot
     else:
       Tree.root = newRoot
+    avlnode.rightnode = None
+    newRoot.leftnode = avlnode
 
   return (newRoot)
 
-#rota a la derecha
+#rota a la derecha YA ANDA BIEN
 def rotateRight(Tree, avlnode):
-  nodeAnt = avlnode
-  parentAnt = avlnode.parent
   newRoot = avlnode.leftnode
 
   if newRoot.rightnode == None:
-    if nodeAnt.parent == newRoot:
-      newRoot.rightnode = nodeAnt
-      if nodeAnt.parent != Tree.root:
-        newRoot.parent = parentAnt
-      else:
-        Tree.root = newRoot
+    if avlnode != Tree.root:
+      avlnode.parent = newRoot
+    else:
+      Tree.root = newRoot
+    avlnode.leftnode = None
+    newRoot.rightnode = avlnode
 
-    return (newRoot)
+  return (newRoot)
 
 #calcula la altura desde un nodo dado
 def heigth(node):
@@ -55,10 +50,38 @@ def heigth(node):
   else:
     return right + 1
 
-''' Descripción: Inserta un elemento con una clave determinada del TAD árbol binario.
-Salida: Si pudo insertar con éxito devuelve la key donde se inserta el elemento. En caso contrario devuelve None. '''
+#lleno los Bf recursivamente 
+def BFrecursive(node):
+  if node != None:
+    BFrecursive(node.leftnode)
+    BFrecursive(node.rightnode)
+    node.bf = heigth(node.leftnode)-heigth(node.rigtnode)
+#calcula el bf de cada nodo de un AVL
+def calculateBalance(AVLTree):
+  if AVLTree == None:
+    return(None)
+  else:
+    return(BFrecursive(AVLTree))
 
 
+
+
+
+def imprimir_arbol(node, prefix="", is_left=True):
+    if node.rightnode:
+        imprimir_arbol(node.rightnode, prefix + ("│   " if is_left else "    "), False)
+    print(prefix + ("└── " if is_left else "┌── ") + str(node.key))
+    if node.leftnode:
+        imprimir_arbol(node.leftnode, prefix + ("    " if is_left else "│   "), True)
+
+
+
+
+
+
+
+''' Descripción: Inserta un elemento con una clave determinada del TAD árbol binario.'''
+'''Salida: Si pudo insertar con éxito devuelve la key donde se inserta el elemento. En caso contrario devuelve None. '''
 def insert(B, element, key):
   newNode = AVLNode()
   newNode.key = key
