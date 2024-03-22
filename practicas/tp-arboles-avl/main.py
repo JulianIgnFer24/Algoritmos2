@@ -17,13 +17,11 @@ insert(B,"A",5)
 insert(B,"B",2)
 insert(B,"C",7)
 
-imprimir_arbol(B.root)
-
 rotateLeft(B,B.root)
 
-print("arbol rotado a la IZQUIERDA")
-#imprimir_arbol(B.root)
 imprimir_arbol(B.root)
-# print("arbol rotado a la izquierda (deberia ser el original)")
-# rotateLeft(B,B.root)
-# imprimir_arbol(B.root)
+a=0
+a = heigth(B.root.leftnode.leftnode.leftnode)
+print("la altura de B es: ",a)
+
+print(B.root.leftnode.leftnode.leftnode.value)

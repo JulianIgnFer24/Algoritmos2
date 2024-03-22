@@ -38,24 +38,21 @@ def rotateRight(Tree, avlnode):
   return (newRoot)
 
 #calcula la altura desde un nodo dado
-def heigth(node):
+def height(node):
   if node is None:
-    return 0
-
-  left = heigth(node.leftnode)
-  right = heigth(node.rightnode)
-
-  if left >= right:
-    return left + 1
+      return -1  # Base para nodos vacíos, -1 para que la raíz sea 0
   else:
-    return right + 1
+    height_left = height(node.leftnode)
+    height_right = height(node.rightnode)
+    return max(height_left, height_right)+1
+
 
 #lleno los Bf recursivamente 
 def BFrecursive(node):
   if node != None:
     BFrecursive(node.leftnode)
     BFrecursive(node.rightnode)
-    node.bf = heigth(node.leftnode)-heigth(node.rigtnode)
+    node.bf = heigth(node.leftnode)-heigth(node.rightnode)
 #calcula el bf de cada nodo de un AVL
 def calculateBalance(AVLTree):
   if AVLTree == None:
