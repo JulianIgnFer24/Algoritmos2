@@ -10,6 +10,7 @@ class AVLNode:
   value = None
   bf = None
 
+#rota a la izquierda
 def rotateLeft(Tree, avlnode):
   newRoot = avlnode.rightnode
 
@@ -23,7 +24,7 @@ def rotateLeft(Tree, avlnode):
 
   return (newRoot)
 
-#rota a la derecha YA ANDA BIEN
+#rota a la derecha
 def rotateRight(Tree, avlnode):
   newRoot = avlnode.leftnode
 
@@ -49,32 +50,34 @@ def height(node):
 
 #lleno los Bf recursivamente 
 def BFrecursive(node):
-  if node != None:
+  altNodo = height(node)
+  if altNodo != 0:
+    node.bf = height(node.leftnode)-height(node.rightnode)
+  else:
+    node.bf = 0
+  if node.leftnode != None:
     BFrecursive(node.leftnode)
+  if node.rightnode != None:
     BFrecursive(node.rightnode)
-    node.bf = heigth(node.leftnode)-heigth(node.rightnode)
+    
 #calcula el bf de cada nodo de un AVL
 def calculateBalance(AVLTree):
   if AVLTree == None:
     return(None)
   else:
-    return(BFrecursive(AVLTree))
+    return(BFrecursive(AVLTree.root))
 
 
 
-
-
+#imprime un arbol binario, hay que pasar la raiz
 def imprimir_arbol(node, prefix="", is_left=True):
-    if node.rightnode:
+    if node is None:
+        return  # Condición de salida para nodos vacíos
+    if node.rightnode != None:
         imprimir_arbol(node.rightnode, prefix + ("│   " if is_left else "    "), False)
     print(prefix + ("└── " if is_left else "┌── ") + str(node.key))
-    if node.leftnode:
+    if node.leftnode != None:
         imprimir_arbol(node.leftnode, prefix + ("    " if is_left else "│   "), True)
-
-
-
-
-
 
 
 ''' Descripción: Inserta un elemento con una clave determinada del TAD árbol binario.'''
@@ -89,7 +92,6 @@ def insert(B, element, key):
     B.root = newNode
     return key
   return insertR(newNode, B.root)
-
 
 # Función recursiva de insert
 def insertR(newNode, currentNode):
