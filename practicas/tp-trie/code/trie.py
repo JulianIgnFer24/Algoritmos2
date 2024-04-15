@@ -92,20 +92,37 @@ def print_trie(node, level=0):
         print(node.key)
     for child in node.children:
         print_trie(child,level+1)
-
+        
+#--------------------------------------------------------    
+#EJERCICIO 7
+def autoCompletar(T,cadena):
+    L=[]
+    currentNode = T.root
+    for i in range(len(cadena)):
+        a = searchCharacter(currentNode.children,cadena[i])
+        currentNode = currentNode.children[a]
+        print("La letra es: ",currentNode.key )
+    while currentNode.children[0].isEndOfWord != True and len(currentNode.children) <= 1: #si tengo que agregar la ultima letra le saco el .children[0]
+        currentNode = currentNode.children[0]
+        print("La letra que tiene que agregar es: ",currentNode.key," es final?",currentNode.isEndOfWord)
+        L.append(currentNode.key)
+    if len(currentNode.children[0].children) < 1:
+        L.append(currentNode.children[0].key)  
+    return L
+        
+#--------------------------------------------------------
 T = Trie()
 insert(T,"HOLA")
 insert(T,"HOLANDA")
 insert(T,"OLA")
 insert(T,"OJALA")
-print_trie(T.root)
+#print_trie(T.root)
 #print(T.root.children[0].children[0].children[0].children[0].parent.key)
 print("---------------------------------------")
-delete(T,"HOLANDA")
+#delete(T,"HOLANDA")
 print_trie(T.root)
-
+print(autoCompletar(T,"HO"))
 #--------------------------------------------------------
 #a = T.root.children[0].children[0].children[0].children[0].parent.children[0]
 #print(a.parent.parent.parent.parent.key)
 
-        
