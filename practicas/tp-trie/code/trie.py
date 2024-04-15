@@ -55,6 +55,32 @@ def search(T,element):
         else:
             currentNode = currentNode.children[a]
         
+#--------------------------------------------------------
+
+def delete(T,element):
+    if search(T,element) == False:
+        return  False
+    else:
+        currentNode = T.root
+        for i in range(len(element)):
+            #con las siguientes dos lineas me voy hasta el ultimo nodo de la palabra
+            a = searchCharacter(currentNode.children,element[i])
+            currentNode = currentNode.children[a]
+        currentNode.isEndOfWord = False #hacemos que en la ultima letra de la palabla ya no sea endWord
+        
+        if len(currentNode.children) != 0: #nos fijamos si hay mas letras para abajo
+            return True
+        cont = 0
+        seDivide = False
+        while seDivide == False:
+            currentNode = currentNode.parent
+            cont = cont+1
+            if  len(currentNode.children) > 1 or currentNode.isEndOfWord == True:
+                seDivide = True
+        
+        pos = searchCharacter(currentNode.children,element[len(element)-cont])
+        del currentNode.children[pos]
+
 
 #--------------------------------------------------------
 #print the trie
@@ -69,11 +95,17 @@ def print_trie(node, level=0):
 
 T = Trie()
 insert(T,"HOLA")
+insert(T,"HOLANDA")
 insert(T,"OLA")
 insert(T,"OJALA")
 print_trie(T.root)
-print(len("HOLA"))
-#print(T.root.children[0].children[0].children[0].children[0].isEndOfWord)
+#print(T.root.children[0].children[0].children[0].children[0].parent.key)
+print("---------------------------------------")
+delete(T,"HOLANDA")
+print_trie(T.root)
+
 #--------------------------------------------------------
+#a = T.root.children[0].children[0].children[0].children[0].parent.children[0]
+#print(a.parent.parent.parent.parent.key)
 
         
