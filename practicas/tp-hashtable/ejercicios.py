@@ -1,3 +1,4 @@
+import math
 """
 ejercicio 2
 """
@@ -96,3 +97,13 @@ def ocurrencia(s,substring):
             return i
         
 print(ocurrencia("hola","ol"))
+
+"""
+ejercicio 9
+"""
+def included(conjunto1,conjunto2):
+    if len(conjunto1) > len(conjunto2):
+        return False
+    #else:
+        
+    
