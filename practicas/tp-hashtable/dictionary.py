@@ -1,10 +1,10 @@
-import math
 
 def functionHash(k):
-    hashnumber = 
+    hashnumber = k % 9
     return hashnumber
-
-m = 9
+    
+    
+m = 1000
 dictionary =[None] * 9
 
 def insert(D, key, value):
@@ -41,6 +41,9 @@ insert(dictionary, 2, "two")
 insert(dictionary, 3, "three")
 insert(dictionary, 4, "four")
 
-print(dictionary)
-print(search(dictionary, 1))
+
+
+
+        
+   
     
